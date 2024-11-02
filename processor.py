@@ -6,7 +6,7 @@ from vipas.logger import LoggerClient
 # Initialize the logger
 logger = LoggerClient(__name__)
 
-# # Load the model
+# Load the model
 # try:
 #     loaded_model = joblib.load('model.joblib')
 #     logger.info("Model loaded successfully.")
@@ -25,12 +25,9 @@ def pre_process(input_data):
 
         # Convert the inputs directly to a numpy array with float type
         input_data_as_numpy_array = np.array(input_values, dtype=np.float64)
-
-        # Reshape to ensure it's 2D and convert to list for JSON serialization
-        input_reshape = input_data_as_numpy_array.reshape(1, -1).tolist()  
-        
+        input_reshape = input_data_as_numpy_array.reshape(1, -1)
         logger.info("Preprocessing completed successfully.")
-        return input_reshape  # Return as a list for JSON compatibility
+        return input_reshape.tolist()  # Convert ndarray to list for JSON compatibility
     except ValueError as err:
         logger.error(f"ValueError during preprocessing: {err} - Ensure input data is numeric.")
         raise
@@ -47,6 +44,7 @@ def pre_process(input_data):
 def post_process(prediction):
     """Interprets the prediction result with exception handling."""
     try:
+        # Interpret prediction
         if prediction[0] == 0:
             result = 'The person is not diabetic'
         else:
@@ -71,9 +69,9 @@ def post_process(prediction):
 
 #         # Pre-process the input values
 #         processed_input = pre_process(user_input)
-
-#         # Make a prediction
-#         prediction = loaded_model.predict(processed_input)  # Now processed_input is correctly shaped
+        
+#         # Make prediction using the processed input
+#         prediction = loaded_model.predict(processed_input)
 
 #         # Post-process the prediction and get the result
 #         result = post_process(prediction)
