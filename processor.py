@@ -25,9 +25,12 @@ def pre_process(input_data):
 
         # Convert the inputs directly to a numpy array with float type
         input_data_as_numpy_array = np.array(input_values, dtype=np.float64)
-        input_reshape = input_data_as_numpy_array.reshape(1, -1)  # Ensuring it's 2D
+
+        # Reshape to ensure it's 2D and convert to list for JSON serialization
+        input_reshape = input_data_as_numpy_array.reshape(1, -1).tolist()  
+        
         logger.info("Preprocessing completed successfully.")
-        return input_reshape  # Return as numpy array for direct use in prediction
+        return input_reshape  # Return as a list for JSON compatibility
     except ValueError as err:
         logger.error(f"ValueError during preprocessing: {err} - Ensure input data is numeric.")
         raise
