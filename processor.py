@@ -20,10 +20,14 @@ logger = LoggerClient(__name__)
 def pre_process(input_data):
     """Prepares the input data for prediction with exception handling."""
     try:
-        input_data_as_numpy_array = np.asarray(input_data)
+        # Convert input data to a numpy array with float data type to ensure numeric values
+        input_data_as_numpy_array = np.asarray(input_data, dtype=np.float64)
         input_reshape = input_data_as_numpy_array.reshape(1, -1)
         logger.info("Preprocessing completed successfully.")
         return input_reshape.tolist()  # Convert ndarray to list for JSON compatibility
+    except ValueError as err:
+        logger.error(f"ValueError during preprocessing: {err} - Ensure input data is numeric.")
+        raise
     except ConnectionException as err:
         logger.error(f"ConnectionException during preprocessing: {err}")
         raise
@@ -53,10 +57,10 @@ def post_process(prediction):
         logger.critical(f"Unexpected error during postprocessing: {str(err)}")
         raise
 
-# Example input
+# # Example input
 # input_data = (137, 138, 43, 33)  # Example input
 
-# Pre-process the input
+# # Pre-process the input
 # try:
 #     processed_input = pre_process(input_data)
 
