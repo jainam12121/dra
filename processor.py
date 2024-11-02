@@ -23,9 +23,14 @@ def pre_process(input_data):
         # Split the input string by commas and convert each part to float
         input_values = [float(value.strip()) for value in input_data.split(",")]
 
+        # Check for the expected number of values
+        if len(input_values) != 4:
+            raise ValueError("Please enter exactly 4 comma-separated values.")
+
         # Convert the inputs directly to a numpy array with float type
         input_data_as_numpy_array = np.array(input_values, dtype=np.float64)
-        input_reshape = input_data_as_numpy_array.reshape(1, -1)  # Reshape to 1 row, -1 columns
+        input_reshape = input_data_as_numpy_array.reshape(1, -1)
+
         logger.info("Preprocessing completed successfully.")
         return input_reshape.tolist()  # Convert ndarray to list for JSON compatibility
     except ValueError as err:
@@ -65,21 +70,6 @@ def post_process(prediction):
 # if __name__ == "__main__":
 #     try:
 #         # Prompt user for input
-#         user_input = input("Enter values separated by commas (e.g., 137, 138, 43, 33): ")
+#         user_input = input("Enter 4 numeric values separated by commas (e.g., 137, 138, 43, 33): ")
 
-#         # Pre-process the input values
-#         processed_input = pre_process(user_input)
-
-#         # Make prediction using the processed input
-#         prediction = loaded_model.predict(processed_input)
-
-#         # Post-process the prediction and get the result
-#         result = post_process(prediction)
-#         print(result)
-#     except Exception as e:
-#         if "Found array with dim 3" in str(e):
-#             logger.error("Model expects data with at most 2 dimensions. Please check preprocessing.")
-#         else:
-#             logger.critical(f"An error occurred during processing: {str(e)}")
-#         # Provide a user-friendly error message
-#         print("An error occurred. Please ensure you've entered the correct number of values (e.g., 4 values separated by commas).")
+#         # Pre-process
