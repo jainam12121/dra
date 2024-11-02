@@ -6,9 +6,9 @@ from vipas.logger import LoggerClient
 # Initialize the logger
 logger = LoggerClient(__name__)
 
-# Load the model
+# # Load the model
 # try:
-#     loaded_model = joblib.load('model.joblib')
+#     loaded_model = joblib.load('./model.joblib')
 #     logger.info("Model loaded successfully.")
 # except FileNotFoundError as err:
 #     logger.critical(f"Model file not found: {err}")
@@ -21,13 +21,13 @@ def pre_process(input_data):
     """Prepares the input data for prediction with exception handling."""
     try:
         # Check if input_data is a dictionary and extract values
-        if isinstance(input_data, dict) and "instances" in input_data:
-            input_values = input_data["instances"][0]
+        if isinstance(input_data, dict) and "input1" in input_data:
+            input_values = input_data["input1"][0]
         elif isinstance(input_data, str):
             # Split the input string by commas and convert each part to float
             input_values = [float(value.strip()) for value in input_data.split(",")]
         else:
-            raise ValueError("Invalid input format. Expected a string or a dictionary with 'instances' key.")
+            raise ValueError("Invalid input format. Expected a string or a dictionary with 'input1' key.")
 
         # Check for the expected number of values
         if len(input_values) != 4:
@@ -85,7 +85,7 @@ def post_process(prediction):
 
 #         # Pre-process input data
 #         preprocessed_data = pre_process(user_input)
-
+#         print(preprocessed_data)
 #         # Make prediction
 #         prediction = loaded_model.predict(preprocessed_data)
 
