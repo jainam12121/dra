@@ -7,15 +7,15 @@ from vipas.logger import LoggerClient
 logger = LoggerClient(__name__)
 
 # Load the model
-try:
-    loaded_model = joblib.load('model.joblib')
-    logger.info("Model loaded successfully.")
-except FileNotFoundError as err:
-    logger.critical(f"Model file not found: {err}")
-    raise
-except Exception as err:
-    logger.critical(f"Unexpected error while loading model: {str(err)}")
-    raise
+# try:
+#     loaded_model = joblib.load('model.joblib')
+#     logger.info("Model loaded successfully.")
+# except FileNotFoundError as err:
+#     logger.critical(f"Model file not found: {err}")
+#     raise
+# except Exception as err:
+#     logger.critical(f"Unexpected error while loading model: {str(err)}")
+#     raise
 
 def pre_process(input_data):
     """Prepares the input data for prediction with exception handling."""
@@ -62,17 +62,17 @@ def post_process(prediction):
         raise
 
 # Example input
-input_data = (137, 138, 43, 33)  # Example input
+# input_data = (137, 138, 43, 33)  # Example input
 
-# Pre-process the input
-try:
-    processed_input = pre_process(input_data)
+# # Pre-process the input
+# try:
+#     processed_input = pre_process(input_data)
 
-    # Make prediction
-    prediction = loaded_model.predict(processed_input)
+#     # Make prediction
+#     prediction = loaded_model.predict(processed_input)
 
-    # Post-process the prediction
-    result = post_process(prediction)
-    print(result)
-except Exception as e:
-    logger.critical(f"An error occurred during processing: {str(e)}")
+#     # Post-process the prediction
+#     result = post_process(prediction)
+#     print(result)
+# except Exception as e:
+#     logger.critical(f"An error occurred during processing: {str(e)}")
