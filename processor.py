@@ -7,15 +7,15 @@ from vipas.logger import LoggerClient
 logger = LoggerClient(__name__)
 
 # Load the model
-try:
-    loaded_model = joblib.load('model.joblib')
-    logger.info("Model loaded successfully.")
-except FileNotFoundError as err:
-    logger.critical(f"Model file not found: {err}")
-    raise
-except Exception as err:
-    logger.critical(f"Unexpected error while loading model: {str(err)}")
-    raise
+# try:
+#     loaded_model = joblib.load('model.joblib')
+#     logger.info("Model loaded successfully.")
+# except FileNotFoundError as err:
+#     logger.critical(f"Model file not found: {err}")
+#     raise
+# except Exception as err:
+#     logger.critical(f"Unexpected error while loading model: {str(err)}")
+#     raise
 
 def pre_process(input_data):
     """Prepares the input data for prediction with exception handling."""
