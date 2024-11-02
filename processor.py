@@ -19,14 +19,14 @@ def post_process(prediction):
     return result
 
 # Example input
-input_data = (137, 138, 43, 33)  # Example input
+# input_data = (137, 138, 43, 33)  # Example input
 
-# Pre-process the input
-processed_input = pre_process(input_data)
+# # Pre-process the input
+# processed_input = pre_process(input_data)
 
-# Make prediction
-prediction = loaded_model.predict(processed_input)
+# # Make prediction
+# prediction = loaded_model.predict(processed_input)
 
-# Post-process the prediction
-result = post_process(prediction)
-print(result)
+# # Post-process the prediction
+# result = post_process(prediction)
+# print(result)
