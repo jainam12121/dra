@@ -1,5 +1,6 @@
 import joblib
 import numpy as np
+import ast
 from vipas.exceptions import UnauthorizedException, NotFoundException, BadRequestException, ForbiddenException, ConnectionException, ClientException
 from vipas.logger import LoggerClient
 
@@ -20,17 +21,17 @@ logger = LoggerClient(__name__)
 def pre_process(input_data):
     """Prepares the input data for prediction with exception handling."""
     try:
-        # If input_data is a string, convert it to a tuple of numbers
+        # If input_data is a string, safely convert it using ast.literal_eval
         if isinstance(input_data, str):
-            input_data = eval(input_data)  # Evaluate string to get tuple
+            input_data = ast.literal_eval(input_data)
 
         # Convert to numpy array with float type for numeric compatibility
         input_data_as_numpy_array = np.asarray(input_data, dtype=np.float64)
         input_reshape = input_data_as_numpy_array.reshape(1, -1)
         logger.info("Preprocessing completed successfully.")
         return input_reshape.tolist()  # Convert ndarray to list for JSON compatibility
-    except ValueError as err:
-        logger.error(f"ValueError during preprocessing: {err} - Ensure input data is numeric.")
+    except (ValueError, SyntaxError) as err:
+        logger.error(f"Error during preprocessing: {err} - Ensure input data is in correct format and numeric.")
         raise
     except ConnectionException as err:
         logger.error(f"ConnectionException during preprocessing: {err}")
