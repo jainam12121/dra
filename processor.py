@@ -6,7 +6,7 @@ from vipas.logger import LoggerClient
 # Initialize the logger
 logger = LoggerClient(__name__)
 
-# # Load the model
+# Load the model
 # try:
 #     loaded_model = joblib.load('model.joblib')
 #     logger.info("Model loaded successfully.")
@@ -41,9 +41,9 @@ def pre_process(input_data):
         logger.critical(f"Unexpected error during preprocessing: {str(err)}")
         raise
 
-def post_process(input_data):
-    """Makes a prediction and interprets the result with exception handling."""
-  
+def post_process(prediction):
+    """Interprets the prediction result with exception handling."""
+    try:
         if prediction[0] == 0:
             result = 'The person is not diabetic'
         else:
@@ -69,8 +69,11 @@ def post_process(input_data):
 #         # Pre-process the input values
 #         processed_input = pre_process(user_input)
 
+#         # Make a prediction (assume loaded_model is available)
+#         prediction = loaded_model.predict(processed_input)  # Replace with appropriate prediction code
+
 #         # Post-process the prediction and get the result
-#         result = post_process(processed_input)
+#         result = post_process(prediction)
 #         print(result)
 #     except Exception as e:
 #         logger.critical(f"An error occurred during processing: {str(e)}")
