@@ -6,7 +6,7 @@ from vipas.logger import LoggerClient
 # Initialize the logger
 logger = LoggerClient(__name__)
 
-# Load the model
+# # Load the model
 # try:
 #     loaded_model = joblib.load('model.joblib')
 #     logger.info("Model loaded successfully.")
@@ -25,9 +25,9 @@ def pre_process(input_data):
 
         # Convert the inputs directly to a numpy array with float type
         input_data_as_numpy_array = np.array(input_values, dtype=np.float64)
-        input_reshape = input_data_as_numpy_array.reshape(1, -1)
+        input_reshape = input_data_as_numpy_array.reshape(1, -1)  # Ensuring it's 2D
         logger.info("Preprocessing completed successfully.")
-        return input_reshape.tolist()  # Convert ndarray to list for JSON compatibility
+        return input_reshape  # Return as numpy array for direct use in prediction
     except ValueError as err:
         logger.error(f"ValueError during preprocessing: {err} - Ensure input data is numeric.")
         raise
@@ -69,8 +69,8 @@ def post_process(prediction):
 #         # Pre-process the input values
 #         processed_input = pre_process(user_input)
 
-#         # Make a prediction (assume loaded_model is available)
-#         prediction = loaded_model.predict(processed_input)  # Replace with appropriate prediction code
+#         # Make a prediction
+#         prediction = loaded_model.predict(processed_input)  # Now processed_input is correctly shaped
 
 #         # Post-process the prediction and get the result
 #         result = post_process(prediction)
