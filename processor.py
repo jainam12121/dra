@@ -2,7 +2,7 @@ import joblib
 import numpy as np
 
 # Load the model
-loaded_model = joblib.load('model.joblib')  # Use joblib to load the model
+# loaded_model = joblib.load('model.joblib')  # Use joblib to load the model
 
 def pre_process(input_data):
     """Prepares the input data for prediction."""
