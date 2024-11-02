@@ -43,10 +43,7 @@ def pre_process(input_data):
 
 def post_process(input_data):
     """Makes a prediction and interprets the result with exception handling."""
-    try:
-        # Make prediction
-        prediction = loaded_model.predict(input_data)
-
+  
         if prediction[0] == 0:
             result = 'The person is not diabetic'
         else:
