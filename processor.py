@@ -37,7 +37,7 @@ def pre_process(input_data):
         logger.info(f"Input shape for prediction: {input_reshape.shape}")
 
         logger.info("Preprocessing completed successfully.")
-        return input_reshape  # Return as a numpy array
+        return input_reshape.tolist()  # Convert ndarray to list for JSON compatibility
     except ValueError as err:
         logger.error(f"ValueError during preprocessing: {err} - Ensure input data is numeric.")
         raise
@@ -71,7 +71,7 @@ def post_process(prediction):
         logger.critical(f"Unexpected error during postprocessing: {str(err)}")
         raise
 
-# # Main execution with user input
+# Main execution with user input
 # if __name__ == "__main__":
 #     try:
 #         # Prompt user for input
