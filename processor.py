@@ -23,7 +23,7 @@ def pre_process(input_data):
         input_data_as_numpy_array = np.asarray(input_data)
         input_reshape = input_data_as_numpy_array.reshape(1, -1)
         logger.info("Preprocessing completed successfully.")
-        return input_reshape
+        return input_reshape.tolist()  # Convert ndarray to list for JSON compatibility
     except ConnectionException as err:
         logger.error(f"ConnectionException during preprocessing: {err}")
         raise
@@ -53,10 +53,10 @@ def post_process(prediction):
         logger.critical(f"Unexpected error during postprocessing: {str(err)}")
         raise
 
-# # Example input
+# Example input
 # input_data = (137, 138, 43, 33)  # Example input
 
-# # Pre-process the input
+# Pre-process the input
 # try:
 #     processed_input = pre_process(input_data)
 
