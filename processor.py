@@ -20,12 +20,18 @@ logger = LoggerClient(__name__)
 def pre_process(input_data):
     """Prepares the input data for prediction with exception handling."""
     try:
-        # Split the input string by commas and convert each part to float
-        input_values = [float(value.strip()) for value in input_data.split(",")]
+        # Check if input_data is a dictionary and extract values
+        if isinstance(input_data, dict) and "instances" in input_data:
+            input_values = input_data["instances"][0]
+        elif isinstance(input_data, str):
+            # Split the input string by commas and convert each part to float
+            input_values = [float(value.strip()) for value in input_data.split(",")]
+        else:
+            raise ValueError("Invalid input format. Expected a string or a dictionary with 'instances' key.")
 
         # Check for the expected number of values
         if len(input_values) != 4:
-            raise ValueError("Please enter exactly 4 comma-separated values.")
+            raise ValueError("Please enter exactly 4 numeric values.")
 
         # Convert the inputs directly to a numpy array with float type
         input_data_as_numpy_array = np.array(input_values, dtype=np.float64)
