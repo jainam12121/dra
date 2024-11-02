@@ -29,10 +29,15 @@ def pre_process(input_data):
 
         # Convert the inputs directly to a numpy array with float type
         input_data_as_numpy_array = np.array(input_values, dtype=np.float64)
+
+        # Ensure the array is 2D
         input_reshape = input_data_as_numpy_array.reshape(1, -1)
 
+        # Log the shape of the input for prediction
+        logger.info(f"Input shape for prediction: {input_reshape.shape}")
+
         logger.info("Preprocessing completed successfully.")
-        return input_reshape.tolist()  # Convert ndarray to list for JSON compatibility
+        return input_reshape  # Return as a numpy array
     except ValueError as err:
         logger.error(f"ValueError during preprocessing: {err} - Ensure input data is numeric.")
         raise
@@ -66,10 +71,21 @@ def post_process(prediction):
         logger.critical(f"Unexpected error during postprocessing: {str(err)}")
         raise
 
-# Main execution with user input
+# # Main execution with user input
 # if __name__ == "__main__":
 #     try:
 #         # Prompt user for input
 #         user_input = input("Enter 4 numeric values separated by commas (e.g., 137, 138, 43, 33): ")
 
-#         # Pre-process
+#         # Pre-process input data
+#         preprocessed_data = pre_process(user_input)
+
+#         # Make prediction
+#         prediction = loaded_model.predict(preprocessed_data)
+
+#         # Post-process prediction
+#         result = post_process(prediction)
+#         print(result)
+
+#     except Exception as e:
+#         logger.error(f"An error occurred during execution: {e}")
